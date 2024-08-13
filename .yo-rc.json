@@ -1,0 +1,13 @@
+{
+  "generator-springboot": {
+    "appName": "bookstore",
+    "packageName": "com.linhnm",
+    "databaseType": "mysql",
+    "dbMigrationTool": "liquibase",
+    "dbMigrationFormat": "sql",
+    "features": [],
+    "buildTool": "maven",
+    "packageFolder": "com/linhnm",
+    "liquibaseMigrationCounter": 7
+  }
+}

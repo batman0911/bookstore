@@ -1,0 +1,58 @@
+package com.linhnm.security;
+
+import com.linhnm.entity.UserEntity;
+import java.util.Collection;
+import java.util.List;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+public class UserInfoDetails implements UserDetails {
+    private String username;
+    private String password;
+    private List<GrantedAuthority> authorities;
+
+    public UserInfoDetails() {
+    }
+
+    public UserInfoDetails(UserEntity user) {
+        this.username = user.getUsername();
+        this.password = user.getPassword();
+        // TODO - Add roles to authorities
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        // TODO: Implement this method
+        return null;
+    }
+
+    @Override
+    public String getPassword() {
+        return this.password;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.username;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+}
