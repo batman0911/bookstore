@@ -9,14 +9,13 @@ import com.linhnm.model.response.BookResponse;
 import com.linhnm.service.BookService;
 import com.linhnm.utils.AppConstants;
 import jakarta.validation.Valid;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v${api.version}/books")
@@ -30,13 +29,13 @@ class BookController {
     @GetMapping
     CommonResponse<List<BookResponse>> getAllBookList(
             @RequestParam(value = "pageNo", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER, required = false)
-            int pageNo,
+                    int pageNo,
             @RequestParam(value = "pageSize", defaultValue = AppConstants.DEFAULT_PAGE_SIZE, required = false)
-            int pageSize,
+                    int pageSize,
             @RequestParam(value = "sortBy", defaultValue = AppConstants.DEFAULT_SORT_BY, required = false)
-            String sortBy,
+                    String sortBy,
             @RequestParam(value = "sortDir", defaultValue = AppConstants.DEFAULT_SORT_DIRECTION, required = false)
-            String sortDir) {
+                    String sortDir) {
         FindBooksQuery findBooksQuery = new FindBooksQuery(pageNo, pageSize, sortBy, sortDir);
         Page<BookResponse> bookResponsePage = bookService.findAllBooks(findBooksQuery);
         return CommonResponse.of(bookResponsePage);
@@ -44,7 +43,10 @@ class BookController {
 
     @GetMapping("/{id}")
     CommonResponse<BookResponse> getBookById(@PathVariable Long id) {
-        return bookService.findBookById(id).map(CommonResponse::of).orElseThrow(() -> new CommonException(ErrorCode.CONTENT_NOT_FOUND));
+        return bookService
+                .findBookById(id)
+                .map(CommonResponse::of)
+                .orElseThrow(() -> new CommonException(ErrorCode.CONTENT_NOT_FOUND));
     }
 
     @PostMapping

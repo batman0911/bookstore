@@ -49,6 +49,7 @@ public class TransactionLogEntity {
 
     @Column(name = "http_status")
     private Integer httpStatus;
+
     @Column(name = "created_at")
     private Date createdAt;
 

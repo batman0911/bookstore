@@ -6,7 +6,6 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
 
 public class FilterResponseHandler {

@@ -1,16 +1,14 @@
 package com.linhnm.security;
 
+import java.util.Collection;
+import java.util.List;
 import lombok.Setter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 
-import java.util.Collection;
-import java.util.List;
-
 /**
  * Created by linhnm on August 2024
  */
-
 @Setter
 public class JWTAuthentication implements Authentication {
 

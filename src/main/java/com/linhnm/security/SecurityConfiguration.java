@@ -5,7 +5,6 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 
 import java.util.Arrays;
 import java.util.Collections;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,7 +31,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @RequiredArgsConstructor
 public class SecurityConfiguration {
     private static final String[] AUTH_WHITELIST = {
-            "/api/v1/auth/login", "/api/ping", "/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**"
+        "/api/v1/auth/login", "/api/ping", "/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**"
     };
 
     private final JwtService jwtService;
@@ -55,13 +54,13 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.cors(AbstractHttpConfigurer::disable)
-                .csrf(AbstractHttpConfigurer::disable);
+        http.cors(AbstractHttpConfigurer::disable).csrf(AbstractHttpConfigurer::disable);
 
         http.authorizeHttpRequests(authorize -> authorize
-                .requestMatchers(AUTH_WHITELIST).permitAll()
-                .anyRequest().authenticated()
-        );
+                .requestMatchers(AUTH_WHITELIST)
+                .permitAll()
+                .anyRequest()
+                .authenticated());
 
         http.sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
                 .authenticationProvider(authenticationProvider())

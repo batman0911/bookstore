@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Created by linhnm on August 2024
  */
-
 @RestController
 public class HealthController {
     @GetMapping("/api/ping")

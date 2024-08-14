@@ -5,10 +5,8 @@ services:
     image: mysql:8.4.0
     environment:
       - MYSQL_DATABASE=bookstore
-      - MYSQL_USER=root
-      - MYSQL_PASSWORD=Welcome1
       - MYSQL_ROOT_PASSWORD=Welcome1
     ports:
-      - "3306:3306"
+      - "13306:3306"
 
 

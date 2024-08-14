@@ -1,7 +1,6 @@
 package com.linhnm.repository;
 
 import com.linhnm.entity.UserEntity;
-
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,8 +11,10 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
     Optional<UserEntity> findByUsername(String username);
 
-    @Query(nativeQuery = true,
-            value = """
+    @Query(
+            nativeQuery = true,
+            value =
+                    """
                     select r.role
                     from user u
                              join user_role ur on u.id = ur.user_id

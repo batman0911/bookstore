@@ -1,14 +1,14 @@
-//package com.linhnm.config;
+// package com.linhnm.config;
 //
-//import lombok.RequiredArgsConstructor;
-//import lombok.extern.slf4j.Slf4j;
-//import org.springframework.boot.CommandLineRunner;
-//import org.springframework.stereotype.Component;
+// import lombok.RequiredArgsConstructor;
+// import lombok.extern.slf4j.Slf4j;
+// import org.springframework.boot.CommandLineRunner;
+// import org.springframework.stereotype.Component;
 //
-//@Component
-//@RequiredArgsConstructor
-//@Slf4j
-//class Initializer implements CommandLineRunner {
+// @Component
+// @RequiredArgsConstructor
+// @Slf4j
+// class Initializer implements CommandLineRunner {
 //
 //    private final ApplicationProperties properties;
 //
@@ -16,4 +16,4 @@
 //    public void run(String... args) {
 //        log.info("Running Initializer.....");
 //    }
-//}
+// }

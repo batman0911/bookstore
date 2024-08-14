@@ -26,8 +26,7 @@ public class BookMapper {
                 bookEntity.getDescription(),
                 bookEntity.getPublisher(),
                 bookEntity.getYear(),
-                bookEntity.getPrice()
-        );
+                bookEntity.getPrice());
     }
 
     public List<BookResponse> toResponseList(List<BookEntity> bookEntityList) {

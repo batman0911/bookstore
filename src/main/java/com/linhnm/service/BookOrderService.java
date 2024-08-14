@@ -1,6 +1,5 @@
 package com.linhnm.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linhnm.common.response.ErrorCode;
 import com.linhnm.entity.BookTransactionEntity;
 import com.linhnm.entity.PaymentCodeEntity;
@@ -14,17 +13,15 @@ import com.linhnm.utils.PaymentClient;
 import com.linhnm.utils.TransactionStatus;
 import io.micrometer.tracing.Span;
 import io.micrometer.tracing.Tracer;
+import java.util.Date;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-
 /**
  * Created by linhnm on August 2024
  */
-
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -45,7 +42,8 @@ public class BookOrderService {
          */
 
         // Retrieve the payment code
-        PaymentCodeEntity paymentCodeEntity = paymentCodeRepository.findByCodeLock(request.paymentCode())
+        PaymentCodeEntity paymentCodeEntity = paymentCodeRepository
+                .findByCodeLock(request.paymentCode())
                 .orElseThrow(() -> new CommonException(ErrorCode.PAYMENT_CODE_ERROR));
 
         // Check if the payment code is expired

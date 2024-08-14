@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 /**
  * Created by linhnm on August 2024
  */
-
 @RestController
 @RequestMapping("/api/v${api.version}/book-order")
 @Slf4j
@@ -20,7 +19,8 @@ public class BookOrderController {
     private final BookOrderService bookOrderService;
 
     @PostMapping("/order/{code}")
-    public CommonResponse<BookOrder.Response> orderBook(@PathVariable String code, @RequestAttribute(name = "ctx") Context context) {
+    public CommonResponse<BookOrder.Response> orderBook(
+            @PathVariable String code, @RequestAttribute(name = "ctx") Context context) {
         BookOrder.Response response = bookOrderService.orderBook(new BookOrder.Request(code, context.getUsername()));
         return CommonResponse.of(response);
     }

@@ -3,7 +3,6 @@ package com.linhnm.security;
 import com.linhnm.entity.UserEntity;
 import java.util.Collection;
 import java.util.List;
-
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,8 +13,7 @@ public class UserInfoDetails implements UserDetails {
     private String password;
     private List<GrantedAuthority> authorities;
 
-    public UserInfoDetails() {
-    }
+    public UserInfoDetails() {}
 
     public UserInfoDetails(UserEntity user) {
         this.username = user.getUsername();

@@ -1,13 +1,13 @@
-//package com.linhnm.config;
+// package com.linhnm.config;
 //
-//import lombok.RequiredArgsConstructor;
-//import org.springframework.context.annotation.Configuration;
-//import org.springframework.web.servlet.config.annotation.CorsRegistry;
-//import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+// import lombok.RequiredArgsConstructor;
+// import org.springframework.context.annotation.Configuration;
+// import org.springframework.web.servlet.config.annotation.CorsRegistry;
+// import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 //
-//@Configuration
-//@RequiredArgsConstructor
-//class WebMvcConfig implements WebMvcConfigurer {
+// @Configuration
+// @RequiredArgsConstructor
+// class WebMvcConfig implements WebMvcConfigurer {
 //    private final ApplicationProperties properties;
 //
 //    @Override
@@ -18,4 +18,4 @@
 //                .allowedOriginPatterns(properties.getCors().getAllowedOriginPatterns())
 //                .allowCredentials(properties.getCors().isAllowCredentials());
 //    }
-//}
+// }

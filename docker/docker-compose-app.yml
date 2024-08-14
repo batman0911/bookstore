@@ -7,11 +7,11 @@ services:
       - "18080:8080"
       - "18787:8787"
     restart: always
-    depends_on:
-      - mysqldb
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
-      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=com.mysql.jdbc.Driver
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb:3306/bookstore
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=Welcome1
+#    depends_on:
+#      - mysqldb
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=docker
+#      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=com.mysql.jdbc.Driver
+#      - SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb:3306/bookstore
+#      - SPRING_DATASOURCE_USERNAME=root
+#      - SPRING_DATASOURCE_PASSWORD=Welcome1
