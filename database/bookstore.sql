@@ -1,5 +1,28 @@
--- liquibase formatted sql
--- see https://docs.liquibase.com/concepts/changelogs/sql-format.html
+create table DATABASECHANGELOG
+(
+    ID            varchar(255) null,
+    AUTHOR        varchar(255) null,
+    FILENAME      varchar(255) null,
+    DATEEXECUTED  datetime     null,
+    ORDEREXECUTED int          null,
+    EXECTYPE      varchar(10)  null,
+    MD5SUM        varchar(35)  null,
+    DESCRIPTION   varchar(255) null,
+    COMMENTS      varchar(255) null,
+    TAG           varchar(255) null,
+    LIQUIBASE     varchar(20)  null,
+    CONTEXTS      varchar(255) null,
+    LABELS        varchar(255) null,
+    DEPLOYMENT_ID varchar(10)  null
+);
+
+create table DATABASECHANGELOGLOCK
+(
+    ID          int          null,
+    LOCKED      tinyint      null,
+    LOCKGRANTED datetime     null,
+    LOCKEDBY    varchar(255) null
+);
 
 create table author
 (

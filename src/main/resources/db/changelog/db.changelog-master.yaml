@@ -1,5 +1,5 @@
 databaseChangeLog:
   - includeAll:
-      path: migration_bak/
+      path: migration/
       errorIfMissingOrEmpty: true
       relativeToChangelogFile: true
