@@ -1,5 +1,19 @@
 databaseChangeLog:
-  - includeAll:
-      path: migration/
-      errorIfMissingOrEmpty: true
-      relativeToChangelogFile: true
+  #  - includeAll:
+  #      path: migration/
+  #      errorIfMissingOrEmpty: true
+  #      relativeToChangelogFile: true
+  - changeSet:
+      id: 1
+      author: linhnm
+      changes:
+        - sqlFile:
+            relativeToChangelogFile: true
+            path: migration/01-init.sql
+  - changeSet:
+      id: 2
+      author: linhnm
+      changes:
+        - sqlFile:
+            relativeToChangelogFile: true
+            path: migration/02-user.sql
