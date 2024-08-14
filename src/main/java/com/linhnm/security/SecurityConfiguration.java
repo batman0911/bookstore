@@ -31,7 +31,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @RequiredArgsConstructor
 public class SecurityConfiguration {
     private static final String[] AUTH_WHITELIST = {
-        "/api/v1/auth/login", "/api/ping", "/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**"
+        "/api/v1/auth/login", "/api/ping", "/actuator/**", "/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**"
     };
 
     private final JwtService jwtService;
