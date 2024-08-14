@@ -3,8 +3,11 @@ package com.linhnm.service;
 import com.linhnm.common.response.ErrorCode;
 import com.linhnm.exception.CommonException;
 import com.linhnm.model.dto.Login;
+import com.linhnm.repository.UserRepository;
 import com.linhnm.security.JwtService;
 import java.util.Date;
+import java.util.List;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,13 +21,15 @@ public class AuthService {
 
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
+    private final UserRepository userRepository;
 
     public Login.Response generateToken(Login.Request authRequest) {
         try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(authRequest.username(), authRequest.password()));
             if (authentication.isAuthenticated()) {
-                String token = jwtService.generateToken(authRequest.username());
+                List<String> roles = userRepository.getUserRoles(authRequest.username());
+                String token = jwtService.generateToken(authRequest.username(), roles);
                 Date expirationDate = jwtService.extractExpiration(token);
                 Long expireAt = expirationDate.getTime() / 1000;
                 return new Login.Response(token, token, expireAt);

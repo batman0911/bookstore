@@ -20,7 +20,14 @@ public class BookMapper {
     }
 
     public BookResponse toResponse(BookEntity bookEntity) {
-        return new BookResponse(bookEntity.getId(), bookEntity.getTitle());
+        return new BookResponse(
+                bookEntity.getId(),
+                bookEntity.getTitle(),
+                bookEntity.getDescription(),
+                bookEntity.getPublisher(),
+                bookEntity.getYear(),
+                bookEntity.getPrice()
+        );
     }
 
     public List<BookResponse> toResponseList(List<BookEntity> bookEntityList) {

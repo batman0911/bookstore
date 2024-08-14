@@ -7,6 +7,7 @@ public enum ErrorCode {
     INVALID_CREDENTIALS(400, "invalid_credentials", "Sai tên đăng nhập hoặc mật khẩu"),
     INVALID_ACCESS_TOKEN(400, "invalid_access_token", "Token không hợp lệ"),
     API_NOT_FOUND(404, "api_not_found", "api is not found"),
+    CONTENT_NOT_FOUND(404, "content_not_found", "Không tìm thấy nội dung"),
     INVALID_INPUT(400, "invalid_input", "Dữ liệu đầu vào không hợp lệ"),
     INVALID_INPUT_COMMON(400, "invalid_input", "%s"),
     INTERNAL_SERVER_ERROR(
@@ -16,6 +17,7 @@ public enum ErrorCode {
     DUPLICATE_ERROR(400, "duplicate_error", "%s"),
     ACCESS_DENIED(403, "access_denied", "Bạn không có quyền truy cập tài nguyên này"),
     INVALID_CONTEXT(403, "invalid_context", "Invalid signed device status"),
+    PAYMENT_CODE_ERROR(400, "payment_code_error", "Mã thanh toán không hợp lệ"),
     ;
 
     private final Integer httpStatus;

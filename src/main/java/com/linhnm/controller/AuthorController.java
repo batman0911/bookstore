@@ -16,7 +16,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/authors")
+@RequestMapping("/api/v${api.version}/authors")
 @Slf4j
 @RequiredArgsConstructor
 class AuthorController {

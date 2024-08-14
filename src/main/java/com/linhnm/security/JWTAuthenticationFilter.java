@@ -3,57 +3,64 @@ package com.linhnm.security;
 import com.linhnm.common.Context;
 import com.linhnm.common.FilterResponseHandler;
 import com.linhnm.common.response.ErrorCode;
+import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import lombok.RequiredArgsConstructor;
+import org.springframework.lang.NonNull;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-@Slf4j
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+@RequiredArgsConstructor
 public class JWTAuthenticationFilter extends OncePerRequestFilter {
+
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
 
-    public JWTAuthenticationFilter(JwtService jwtService, UserDetailsService userDetailsService) {
-        this.jwtService = jwtService;
-        this.userDetailsService = userDetailsService;
-    }
-
     @Override
     protected void doFilterInternal(
-            HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain)
-            throws ServletException, IOException {
+            @NonNull HttpServletRequest request,
+            @NonNull HttpServletResponse response,
+            @NonNull FilterChain filterChain
+    ) throws ServletException, IOException {
         Context context = new Context();
-        String authHeader = httpServletRequest.getHeader("Authorization");
-
-        if (authHeader == null || authHeader.length() < 8 || !authHeader.startsWith("Bearer ")) {
+        final String authHeader = request.getHeader("Authorization");
+        final String jwt;
+        final String userEmail;
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             FilterResponseHandler.returnError(
-                    httpServletResponse, ErrorCode.INVALID_ACCESS_TOKEN, "invalid access token");
+                    response, ErrorCode.INVALID_ACCESS_TOKEN, "invalid access token");
+            return;
         }
-
-        String token = authHeader.substring(7);
-        String username = jwtService.extractUsername(token);
-
-        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserInfoDetails userDetails = (UserInfoDetails) userDetailsService.loadUserByUsername(username);
-            if (jwtService.validateToken(token, userDetails)) {
-                UsernamePasswordAuthenticationToken authToken =
-                        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
-                SecurityContextHolder.getContext().setAuthentication(authToken);
+        jwt = authHeader.substring(7);
+        userEmail = jwtService.extractUsername(jwt);
+        if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
+            boolean isTokenValid = jwtService.validateToken(jwt, userDetails);
+            if (isTokenValid) {
+                Claims claims = jwtService.extractAllClaims(jwt);
+                List<String> roles = claims.get("rol", List.class);
+                List<GrantedAuthority> auths = new ArrayList<>();
+                roles.forEach(role -> auths.add(new SimpleGrantedAuthority(role)));
+                JWTAuthentication jwtAuthentication = new JWTAuthentication();
+                jwtAuthentication.setAuthenticated(true);
+                jwtAuthentication.setAuthorities(auths);
+                SecurityContextHolder.getContext().setAuthentication(jwtAuthentication);
 
                 context.setUser(userDetails);
-                httpServletRequest.setAttribute("ctx", context);
+                request.setAttribute("ctx", context);
             }
         }
-
-        filterChain.doFilter(httpServletRequest, httpServletResponse);
+        filterChain.doFilter(request, response);
     }
 }

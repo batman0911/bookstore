@@ -16,7 +16,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("")
+@RequestMapping("/api/v${api.version}/payment-codes")
 @Slf4j
 @RequiredArgsConstructor
 class PaymentCodeController {

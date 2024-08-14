@@ -14,6 +14,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -51,6 +52,14 @@ public class CommonExceptionHandler extends ResponseEntityExceptionHandler {
 
         log.error("DataIntegrityViolationException", exc);
         CommonException commonException = new CommonException(ErrorCode.INTERNAL_SERVER_ERROR.getCode());
+        commonException.initCause(exc.getCause());
+        return createResponse(commonException, commonException.getMessage());
+    }
+
+    @ExceptionHandler(AuthorizationDeniedException.class)
+    public ResponseEntity<?> handleAccessDeniedException(AuthorizationDeniedException exc) {
+        log.error("AccessDeniedException", exc);
+        CommonException commonException = new CommonException(ErrorCode.ACCESS_DENIED);
         commonException.initCause(exc.getCause());
         return createResponse(commonException, commonException.getMessage());
     }

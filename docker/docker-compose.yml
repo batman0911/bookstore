@@ -4,10 +4,10 @@ services:
   mysqldb:
     image: mysql:8.4.0
     environment:
-      - MYSQL_DATABASE=appdb
-      - MYSQL_USER=appuser
-      - MYSQL_PASSWORD=secret
-      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=bookstore
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=Welcome1
+      - MYSQL_ROOT_PASSWORD=Welcome1
     ports:
       - "3306:3306"
 

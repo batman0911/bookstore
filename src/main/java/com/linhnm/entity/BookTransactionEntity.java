@@ -27,13 +27,13 @@ public class BookTransactionEntity {
     private Long id;
 
     @Column(name = "request_id")
-    private Long requestId;
+    private String requestId;
 
     @Column(name = "book_id")
     private Long bookId;
 
     @Column(name = "created_by")
-    private Long createdBy;
+    private String createdBy;
 
     @Column(name = "price")
     private Long price;

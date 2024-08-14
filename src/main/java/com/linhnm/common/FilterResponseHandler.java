@@ -11,7 +11,6 @@ import org.springframework.http.MediaType;
 
 public class FilterResponseHandler {
 
-    private static final Environment env = SpringContext.getBean(Environment.class);
     private static final ObjectMapper mapper = new ObjectMapper();
 
     private FilterResponseHandler() {}
