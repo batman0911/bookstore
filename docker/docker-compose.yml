@@ -8,5 +8,11 @@ services:
       - MYSQL_ROOT_PASSWORD=Welcome1
     ports:
       - "13306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
+    driver: local
 
 

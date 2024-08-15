@@ -1,7 +1,3 @@
--- liquibase formatted sql
--- see https://docs.liquibase.com/concepts/changelogs/sql-format.html
--- changeset linhnm:1
-
 create table author
 (
     id           bigint unsigned auto_increment
@@ -47,7 +43,7 @@ create table book
 
 create table book_transaction
 (
-    id             bigint unsigned                       not null
+    id             bigint unsigned auto_increment
         primary key,
     request_id     varchar(200)                          null comment 'request id khi gọi sang trung gian thanh toán',
     book_id        bigint unsigned                       not null,
@@ -100,17 +96,17 @@ create table role
 
 create table transaction_log
 (
-    id             int                                    not null
+    id             bigint unsigned auto_increment
         primary key,
-    transaction_id bigint unsigned                        not null comment 'id của giao dịch',
-    client         varchar(100) default 'MOMO'            not null comment 'đối tác thanh toán',
-    trans_type     varchar(32)  default 'PAY'             not null comment 'loại giao dịch PAY, IPN',
-    url            varchar(1000)                          null comment 'uri gọi sang đối tác thanh toán',
-    method         varchar(20)  default 'POST'            not null,
-    request_body   mediumtext                             null,
-    response_body  mediumtext                             null,
-    http_status    int          default 200               not null,
-    created        timestamp    default CURRENT_TIMESTAMP not null
+    transaction_id bigint unsigned                           not null comment 'id của giao dịch',
+    client         varchar(100) default 'MOMO'               null comment 'đối tác thanh toán',
+    trans_type     varchar(32)  default 'PAY'                null comment 'loại giao dịch PAY, IPN',
+    url            varchar(1000)                             null comment 'uri gọi sang đối tác thanh toán',
+    method         varchar(20)  default 'POST'               null,
+    request_body   mediumtext                                null,
+    response_body  mediumtext                                null,
+    http_status    int          default 200                  null,
+    created_at     timestamp(3) default CURRENT_TIMESTAMP(3) null
 );
 
 create index transaction_log_transaction_id_index
@@ -133,3 +129,4 @@ create table user_role
     role_id bigint unsigned not null,
     primary key (user_id, role_id)
 );
+

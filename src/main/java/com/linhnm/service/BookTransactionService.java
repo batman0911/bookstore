@@ -15,6 +15,7 @@ import com.linhnm.repository.BookTransactionRepository;
 import java.util.Date;
 import java.util.Optional;
 
+import com.linhnm.repository.PaymentCodeRepository;
 import com.linhnm.repository.TransactionLogRepository;
 import com.linhnm.utils.PaymentClient;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +33,7 @@ public class BookTransactionService {
 
     private final BookTransactionRepository bookTransactionRepository;
     private final TransactionLogRepository transactionLogRepository;
+    private final PaymentCodeRepository paymentCodeRepository;
     private final BookTransactionMapper bookTransactionMapper;
 
     public Page<BookTransactionResponse> findAllBookTransactions(FindBookTransactionsQuery findBookTransactionsQuery) {
@@ -89,6 +91,7 @@ public class BookTransactionService {
          * This method is used to confirm an order
          * update transaction status to status
          * create transaction log
+         * disable payment code
          */
 
         // Retrieve the transaction
@@ -111,6 +114,12 @@ public class BookTransactionService {
         transactionLogEntity.setRequestBody(request.toString());
         transactionLogEntity.setResponseBody(response.toString());
         transactionLogRepository.save(transactionLogEntity);
+
+        paymentCodeRepository.findByCodeLock(bookTransactionEntity.getPaymentCode())
+                .ifPresent(paymentCodeEntity -> {
+                    paymentCodeEntity.setEnabled(false);
+                    paymentCodeRepository.save(paymentCodeEntity);
+                });
 
         return response;
     }

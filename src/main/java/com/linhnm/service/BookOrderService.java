@@ -57,6 +57,7 @@ public class BookOrderService {
 
         // Create a transaction with status created
         BookTransactionEntity bookTransactionEntity = new BookTransactionEntity();
+        bookTransactionEntity.setPaymentCode(paymentCodeEntity.getCode());
         bookTransactionEntity.setBookId(paymentCodeEntity.getBookId());
         bookTransactionEntity.setRequestId(traceId);
         bookTransactionEntity.setCreatedBy(request.username());
@@ -73,6 +74,7 @@ public class BookOrderService {
         transactionLogEntity.setTransType(PaymentClient.MANUAL);
         transactionLogEntity.setRequestBody(request.toString());
         transactionLogEntity.setResponseBody(response.toString());
+        transactionLogEntity.setCreatedAt(new Date());
         transactionLogRepository.save(transactionLogEntity);
 
         // Return the response

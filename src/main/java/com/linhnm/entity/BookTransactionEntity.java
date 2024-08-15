@@ -29,6 +29,9 @@ public class BookTransactionEntity {
     @Column(name = "request_id")
     private String requestId;
 
+    @Column(name = "payment_code")
+    private String paymentCode;
+
     @Column(name = "book_id")
     private Long bookId;
 
