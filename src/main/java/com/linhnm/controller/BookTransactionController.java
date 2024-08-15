@@ -2,6 +2,7 @@ package com.linhnm.controller;
 
 import com.linhnm.common.response.CommonResponse;
 import com.linhnm.exception.BookTransactionNotFoundException;
+import com.linhnm.model.dto.BookOrder;
 import com.linhnm.model.query.FindBookTransactionsQuery;
 import com.linhnm.model.request.BookTransactionRequest;
 import com.linhnm.model.response.BookTransactionResponse;
@@ -12,6 +13,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v${api.version}/book-transactions")
 @Slf4j
 @RequiredArgsConstructor
+@PreAuthorize("hasAuthority('ADMIN')")
 class BookTransactionController {
 
     private final BookTransactionService bookTransactionService;
@@ -70,5 +73,12 @@ class BookTransactionController {
                     return CommonResponse.of(bookTransaction);
                 })
                 .orElseThrow(() -> new BookTransactionNotFoundException(id));
+    }
+
+    @PostMapping("/confirm")
+    CommonResponse<BookOrder.ConfirmTransactionResponse> confirmBookTransaction(
+            @RequestBody @Validated BookOrder.ConfirmTransactionRequest request) {
+        BookOrder.ConfirmTransactionResponse response = bookTransactionService.confirmOrder(request);
+        return CommonResponse.of(response);
     }
 }

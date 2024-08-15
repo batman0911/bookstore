@@ -18,6 +18,7 @@ public enum ErrorCode {
     ACCESS_DENIED(403, "access_denied", "Bạn không có quyền truy cập tài nguyên này"),
     INVALID_CONTEXT(403, "invalid_context", "Invalid signed device status"),
     PAYMENT_CODE_ERROR(400, "payment_code_error", "Mã thanh toán không hợp lệ"),
+    TRANSACTION_NOT_FOUND(404, "transaction_not_found", "Không tìm thấy giao dịch"),
     ;
 
     private final Integer httpStatus;
